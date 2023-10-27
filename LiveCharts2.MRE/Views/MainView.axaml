@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:LiveCharts2.MRE.ViewModels"
+			 xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             x:Class="LiveCharts2.MRE.Views.MainView"
+             x:DataType="vm:MainViewModel">
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:MainViewModel />
+	</Design.DataContext>
+
+	<Border>
+		<ScrollViewer VerticalScrollBarVisibility="Auto"
+					  HorizontalScrollBarVisibility="Disabled">
+			<ItemsRepeater ItemsSource="{Binding Graphs}">
+				<ItemsRepeater.Layout>
+					<WrapLayout></WrapLayout>
+				</ItemsRepeater.Layout>
+				<ItemsRepeater.ItemTemplate>
+					<DataTemplate x:DataType="vm:GraphViewModel">
+						<lvc:CartesianChart Series="{Binding Series}"
+											XAxes="{Binding XAxes}"
+											YAxes="{Binding YAxes}"
+											SyncContext="{Binding SyncObject}"
+											Width="400"
+											Height="300"/>
+					</DataTemplate>
+				</ItemsRepeater.ItemTemplate>
+			</ItemsRepeater>
+		</ScrollViewer>
+	</Border>
+</UserControl>
